@@ -20,7 +20,7 @@ export default function Blogs({ posts }: BlogsProps) {
           <p>No posts yet. Create your first blog post!</p>
         ) : (
           posts.map((post, index) => (
-            <div key={index} className="md:w-1/2 w-full p-5">
+            <div key={index} className="divposts">
               <h2>{post.title}</h2>
               <img src="" alt="" className="imgblog"/>
               <p>{post.post}</p>

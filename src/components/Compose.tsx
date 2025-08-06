@@ -44,7 +44,7 @@ export default function Compose({ setPosts }: ComposeProps) {
     <div>
       <Navbar />
       <div className="divcomp">
-        <h1>Compose</h1>
+        <h1 className="text-white">Compose</h1>
         <div className="flex-center">
           <form onSubmit={handleSubmit}>
             <label htmlFor="Title">Title</label>
