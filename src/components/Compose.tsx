@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
 interface Post {
+  id: string;
   title: string;
   post: string;
 }
@@ -12,7 +13,7 @@ interface ComposeProps {
 }
 
 export default function Compose({ setPosts }: ComposeProps) {
-  const [inputText, setInputText] = useState<Post>({
+  const [inputText, setInputText] = useState({
     title: "",
     post: ""
   });
@@ -28,7 +29,12 @@ export default function Compose({ setPosts }: ComposeProps) {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    setPosts((prevPosts) => [...prevPosts, inputText]);
+    const newPost = {
+      id: Date.now().toString(),
+      title: inputText.title,
+      post: inputText.post
+    };
+    setPosts((prevPosts) => [...prevPosts, newPost]);
     setInputText({ title: "", post: "" });
     navigate("/blogs");
   }
@@ -54,6 +60,7 @@ export default function Compose({ setPosts }: ComposeProps) {
               name="title"
               value={inputText.title}
               onChange={handleChange}
+              placeholder="Title"
             />
 
             <label htmlFor="Post">Post</label>
@@ -63,6 +70,8 @@ export default function Compose({ setPosts }: ComposeProps) {
               value={inputText.post}
               onChange={handleChange}
               onKeyDown={handleKeyDown}
+              placeholder="Write your blog here..."
+              rows={6}
             />
 
             <button type="submit" className="pubtn">
@@ -74,5 +83,3 @@ export default function Compose({ setPosts }: ComposeProps) {
     </div>
   );
 }
-
-

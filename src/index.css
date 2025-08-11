@@ -20,10 +20,11 @@ body {
 
 @layer base {
   form {
-    @apply flex flex-col space-y-4 items-start w-1/2;
+    @apply flex flex-col space-y-4 items-start md:w-1/2 w-full;
   }
   h1,h2 {
-    @apply md:text-[3rem]  font-bold p-[2rem] text-[2.3rem];
+    font-family: 'Freeman', sans-serif;
+    @apply md:text-[3rem]  font-bold p-[2rem] text-[3rem] text-[#2D336B] uppercase;
   }
 
   nav {
@@ -61,7 +62,7 @@ body {
   }
   .divcomp {
     font-family: 'Edu AU VIC WA NT Pre', cursive;
-    @apply bg-[#2D336B] h-screen font-bold text-[1.2rem] text-center;
+    @apply bg-[#2D336B] font-bold text-[1.2rem] text-center p-5 h-screen;
   }
   .divnav {
     @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between 
@@ -69,11 +70,12 @@ body {
   }
   .divblog {
     font-family: 'Freeman', sans-serif;
-    @apply bg-[#2D336B] text-center text-[2rem] text-[#fff] p-5;
+    @apply bg-[#2D336B] text-center text-[2rem] text-[#fff] p-5 ;
   }
   .divposts {
-    @apply md:w-10/12 w-full p-3 bg-[#fff] rounded-[1rem] text-[#2D336B] m-3;
-  }
+    @apply md:w-10/12 w-full p-5 bg-[#fff] rounded-[1rem] text-[#2D336B] m-3
+    }
+
   .homeh1 {
     @apply md:max-w-10/12 mt-[4rem] capitalize md:text-[5rem] text-[#2D336B] 
     max-w-10/12 m-3;
@@ -92,13 +94,25 @@ body {
     @apply text-[2rem] hover:text-[#fff] hover:bg-[#4e5486] transition absolute
     bg-transparent outline-1 outline-[#4e5486] hover:outline-[#fff] outline-2;
   }
+  .blogbtn {
+    @apply m-3 p-2 text-[1.2rem];
+  }
+  .aboutdiv {
+    font-family: 'Edu AU VIC WA NT Pre', cursive;
+    @apply text-[#2D336B] p-3 max-w-5xl mx-auto text-center text-[1.5rem];
+  }
+  .contdiv {
+    font-family: 'Comic Neue', cursive;
+    @apply min-h-screen bg-white text-[#2D336B] p-3 max-w-7xl mx-auto text-center text-[1.5rem] m-5;
+  }
   .openul {
     @apply absolute right-0 mt-2 w-44 bg-white shadow-lg border rounded-md py-2 text-sm space-y-1;
   }
-  .imgblog {
-    @apply bg-[#2D336B] rounded-full p-[4rem] float-left m-2;
+  .mailink{
+    @apply inline-block bg-[#2D336B] hover:rounded-[2rem] hover:bg-[#4e5486] text-[#fff] px-6 py-3 
+    rounded-lg transition duration-300;
   }
-  /* .pblog {
-    @apply float-left  w-full mb-2 mr-4 rounded;
-  } */
+  .cont-form {
+    @apply bg-[#2D336B] p-10 rounded-lg shadow-lg m-5;
+  }
 }

@@ -6,12 +6,15 @@ import codem from "../assets/images/code image.jpg"
 import codem2 from "../assets/images/codem2.jpg"
 import codem3 from "../assets/images/codem3.jpg"
 import codem4 from "../assets/images/codem4.jpg"
+import { useNavigate } from "react-router-dom";
+
 
 const images = [codem, codem2, codem3, codem4];
 
 function Home() {
   const [index, setIndex] = useState(0);
   const intervalRef = useRef<number | null>(null);
+  const navigate = useNavigate();
 
   const startSliding = () => {
     if (intervalRef.current) return;
@@ -41,6 +44,10 @@ function Home() {
     setIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
+  const click = () => {
+    navigate("/compose")
+  }
+
   return (
     <>
     <Navbar />
@@ -66,7 +73,7 @@ function Home() {
             <h1 className="homeh1">Share your coding experience and connect with people</h1>
           </div>
           <div className="flex flex-col flex-center">
-              <button className="homebtn">Get Started</button>
+              <button className="homebtn" onClick={click}>Get Started</button>
           </div>
           <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 flex gap-4">
             <button

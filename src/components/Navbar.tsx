@@ -23,10 +23,9 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md">
       <div className="divnav">
-        {/* Logo */}
         <a
           href="/"
-          className=" font-bold text-gray-500 text-[2.3rem] mx-[1rem]"
+          className=" font-bold text-gray-500 text-[2.5rem] mx-[1rem] uppercase"
         >
           Coding Journal
         </a>
@@ -36,7 +35,6 @@ export default function Navbar() {
             <DehazeIcon />
           </button>
 
-          {/* Dropdown Menu */}
           {isOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
               <ul className="py-1">
