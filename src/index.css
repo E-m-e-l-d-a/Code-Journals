@@ -115,4 +115,7 @@ body {
   .cont-form {
     @apply bg-[#2D336B] p-10 rounded-lg shadow-lg m-5;
   }
+  .inarea {
+    @apply md:w-10/12 w-full outline-[#2D336B] border-[0.1rem] m-2 text-[1.5rem];
+  }
 }

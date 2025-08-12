@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -11,25 +11,55 @@ interface Post {
   post: string;
 }
 
-interface BlogsProps {
-  posts: Post[];
-  onDelete: (id: string) => void;
-  onEdit: (id: string, updatedPost: { title: string; post: string }) => void;
-}
-
-export default function Blogs({ posts, onDelete, onEdit }: BlogsProps) {
+export default function Blogs() {
+  const [posts, setPosts] = useState<Post[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState({ title: '', post: '' });
+  const [loading, setLoading] = useState(true);
+
+  const loadPosts = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("http://localhost:5000/blogs");
+      const data = await response.json();
+      setPosts(data);
+    } catch (error) {
+      console.error("Error loading posts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
+    loadPosts();
+  }, []);
 
   const handleEdit = (post: Post) => {
     setEditingId(post.id);
     setEditForm({ title: post.title, post: post.post });
   };
 
-  const handleSave = (id: string) => {
-    onEdit(id, editForm);
-    setEditingId(null);
-    setEditForm({ title: '', post: '' });
+  const handleSave = async (id: string) => {
+    try {
+      const res = await fetch(`http://localhost:5000/blogs/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editForm)
+      });
+
+      if (!res.ok) throw new Error("Failed to update post");
+
+      const updatedPost = await res.json();
+      setPosts(prevPosts =>
+        prevPosts.map(post =>
+          post.id === id ? updatedPost : post
+        )
+      );
+      setEditingId(null);
+      setEditForm({ title: '', post: '' });
+    } catch (err) {
+      console.error("Error updating post:", err);
+    }
   };
 
   const handleCancel = () => {
@@ -37,9 +67,20 @@ export default function Blogs({ posts, onDelete, onEdit }: BlogsProps) {
     setEditForm({ title: '', post: '' });
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
-      onDelete(id);
+      console.log("Deleting post with ID:", id);
+
+      try {
+        const res = await fetch(`http://localhost:5000/blogs/${id}`, {
+          method: 'DELETE'
+        });
+        if (!res.ok) throw new Error("Failed to delete post");
+
+        setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
+      } catch (err) {
+        console.error("Error deleting post:", err);
+      }
     }
   };
 
@@ -47,6 +88,18 @@ export default function Blogs({ posts, onDelete, onEdit }: BlogsProps) {
     const { name, value } = e.target;
     setEditForm(prev => ({ ...prev, [name]: value }));
   };
+
+  if (loading) {
+    return (
+      <div>
+        <Navbar />
+        <div className="divblog flex-center flex-col">
+          <h1 className="text-white">Blog Posts</h1>
+          <p>Loading posts...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -65,13 +118,13 @@ export default function Blogs({ posts, onDelete, onEdit }: BlogsProps) {
                     name="title"
                     value={editForm.title}
                     onChange={handleEditChange}
-                    className="md:w-10/12 w-full outline-[#2D336B] border-[0.1rem] m-2 text-[1.5rem]"
+                    className="inarea"
                   />
                   <textarea
                     name="post"
                     value={editForm.post}
                     onChange={handleEditChange}
-                    className="md:w-10/12 w-full outline-[#2D336B] border-[0.1rem] m-2 text-[1.5rem]"
+                    className="inarea"
                     rows={6}
                   />
                   <div>

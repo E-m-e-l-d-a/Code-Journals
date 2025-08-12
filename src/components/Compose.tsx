@@ -2,47 +2,46 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
-interface Post {
-  id: string;
-  title: string;
-  post: string;
-}
-
-interface ComposeProps {
-  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
-}
-
-export default function Compose({ setPosts }: ComposeProps) {
+export default function Compose() {
   const [inputText, setInputText] = useState({
     title: "",
-    post: ""
+    post: "",
   });
   const navigate = useNavigate();
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+  function handleChange(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
     const { name, value } = event.target;
     setInputText((prevInput) => ({
       ...prevInput,
-      [name]: value
+      [name]: value,
     }));
   }
 
-  function handleSubmit(event: React.FormEvent) {
+  async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    const newPost = {
-      id: Date.now().toString(),
-      title: inputText.title,
-      post: inputText.post
-    };
-    setPosts((prevPosts) => [...prevPosts, newPost]);
-    setInputText({ title: "", post: "" });
-    navigate("/blogs");
+    try {
+      const res = await fetch("http://localhost:5000/blogs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(inputText),
+      });
+
+      if (!res.ok) throw new Error("Failed to create post");
+      
+      setInputText({ title: "", post: "" });
+      navigate("/blogs");
+    } catch (err) {
+      console.error("Error creating post:", err);
+      alert("Failed to publish blog. Please try again.");
+    }
   }
 
   function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
-      handleSubmit(event);
+      handleSubmit(event as unknown as React.FormEvent);
     }
   }
 
@@ -71,7 +70,7 @@ export default function Compose({ setPosts }: ComposeProps) {
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               placeholder="Write your blog here..."
-              rows={6}
+              rows={7}
             />
 
             <button type="submit" className="pubtn">
