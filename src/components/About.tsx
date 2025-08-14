@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 
@@ -10,10 +9,10 @@ export default function About() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="aboutdiv px-4 py-12">
+      <div className="aboutdiv flex-center">
         <div>
-          <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
-            <section className="mb-8">
+          <div className="bg-white rounded-lg shadow-lg p-8 md:p-15">
+            <section className="mb-8 md:p-10">
               <div className="text-center mb-12">
                 <h1>About Me</h1>
               </div>
@@ -63,7 +62,7 @@ export default function About() {
                 My Approach
               </h2>
               <p className="mb-4">I focus on:</p>
-              <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+              <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
                   <strong>Clean Code</strong> – Writing code that's easy to
                   read, maintain, and improve
@@ -87,7 +86,7 @@ export default function About() {
               <h2>
                 Why Work With Me?
               </h2>
-              <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+              <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
                   <strong>Reliable</strong> – I communicate clearly and meet
                   deadlines
@@ -106,7 +105,7 @@ export default function About() {
                 </li>
               </ul>
             </section>
-            <section className="text-center">
+            <section>
               <h2>
                 Let's Build Something Together!
               </h2>

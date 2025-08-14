@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import axios from "axios";
 
 export default function Compose() {
   const [inputText, setInputText] = useState({
@@ -8,6 +9,7 @@ export default function Compose() {
     post: "",
   });
   const navigate = useNavigate();
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -20,23 +22,19 @@ export default function Compose() {
   }
 
   async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    try {
-      const res = await fetch("http://localhost:5000/blogs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(inputText),
-      });
+  event.preventDefault();
+  try {
+    await axios.post(`${API_BASE_URL}/api/blog`, inputText, {
+      headers: { "Content-Type": "application/json" },
+    });
 
-      if (!res.ok) throw new Error("Failed to create post");
-      
-      setInputText({ title: "", post: "" });
-      navigate("/blogs");
-    } catch (err) {
-      console.error("Error creating post:", err);
-      alert("Failed to publish blog. Please try again.");
-    }
+    setInputText({ title: "", post: "" });
+    navigate("/blogs");
+
+  } catch (err) {
+    console.error("Error creating post:", err);
   }
+}
 
   function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter" && !event.shiftKey) {
