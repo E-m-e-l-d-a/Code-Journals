@@ -4,6 +4,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from "react-router-dom";
 
 interface Post {
   _id: string;
@@ -50,10 +51,6 @@ const handleDelete = async (id: string) => {
     setPosts((prevPosts) => prevPosts.filter((post) => post._id !== id));
 
   } catch (err) {
-    const message = axios.isAxiosError(err)
-      ? err.response?.data?.message || err.message
-      : "Failed to delete post";
-    alert(message);
     console.error("Error deleting post:", err);
 
   } finally {
@@ -103,7 +100,12 @@ const handleDelete = async (id: string) => {
           posts.map((post) => (
             <div key={post._id} className="divposts">
               <h2>{post.title}</h2>
-              <p>{post.post}</p>
+              <p>{post.post.substring(0, 100)}...</p>
+          <Link to={`/blog/${post._id}`}
+            className="text-[#2D336B] text-[1rem]"
+          >
+            read more...
+          </Link>
               <div>
                 <button 
                   onClick={() => handleEdit(post._id)} 

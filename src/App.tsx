@@ -6,6 +6,8 @@ import Contact from "./components/Contact"
 import Compose from "./components/Compose"
 import NotFound from "./components/Notfound"
 import BlogEdit from "./components/BlogEdit"
+import Registration from "./components/login"
+import SingleBlog from "./components/singleBlog"
 
 export default function App(){
   return(
@@ -14,9 +16,11 @@ export default function App(){
         <Route path="/" element={<Home/>} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/:id" element={<BlogEdit />} />
+        <Route path="/blog/:id" element={<SingleBlog />} />
         <Route path="/about" element={<About/>} />
         <Route path="/compose" element={<Compose />} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path="/login" element={<Registration />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import DehazeIcon from "@mui/icons-material/Dehaze";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -19,6 +21,9 @@ export default function Navbar() {
   const handleLinkClick = () => {
     setIsOpen(false);
   };
+  const click = () => {
+    navigate("/login")
+  }
 
   return (
     <nav className="bg-white shadow-md">
@@ -84,7 +89,7 @@ export default function Navbar() {
                   </NavLink>
                 </li>
                 <li>
-                  <button className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <button onClick={click} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Log Out
                   </button>
                 </li>
@@ -110,7 +115,7 @@ export default function Navbar() {
           <li>
             <NavLink to="/contact">Contact</NavLink>
           </li>
-          <button className="logbtn">Log Out</button>
+          <button onClick={click} className="logbtn">Log Out</button>
         </ul>
       </div>
     </nav>

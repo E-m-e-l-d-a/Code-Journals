@@ -107,7 +107,6 @@ const handleSave = async () => {
 
   return (
     <div>
-      <Navbar />
       <div className="divblog flex-center flex-col">
         <h1 className="text-white">Edit Blog Post</h1>
         <input
