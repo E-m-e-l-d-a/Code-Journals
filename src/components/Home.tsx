@@ -44,10 +44,6 @@ function Home() {
     setIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
   };
 
-  const click = () => {
-    navigate("/compose")
-  }
-
   return (
     <>
     <Navbar />
@@ -73,7 +69,8 @@ function Home() {
             <h1 className="homeh1">Share your coding experience and connect with people</h1>
           </div>
           <div className="flex flex-col flex-center">
-              <button className="homebtn" onClick={click}>Get Started</button>
+              <button className="homebtn" 
+              onClick={() => navigate("/compose")}>Get Started</button>
           </div>
           <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 flex gap-4">
             <button

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import axios from "axios";
+import {Toaster, toast} from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Compose() {
   const [inputText, setInputText] = useState({
     title: "",
     post: "",
   });
-  const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const navigate = useNavigate();
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -22,19 +23,20 @@ export default function Compose() {
   }
 
   async function handleSubmit(event: React.FormEvent) {
-  event.preventDefault();
-  try {
-    await axios.post(`${API_BASE_URL}/api/blog`, inputText, {
-      headers: { "Content-Type": "application/json" },
-    });
-
-    setInputText({ title: "", post: "" });
-    navigate("/blogs");
-
-  } catch (err) {
-    console.error("Error creating post:", err);
+    event.preventDefault();
+    try {
+      await axios.post(`${API_BASE_URL}/api/blog`, 
+        inputText, 
+        {
+        headers: { "Content-Type": "application/json" },
+      });
+      setInputText({ title: "", post: "" });
+      navigate("/blogs");
+      toast("Blog successfully published!");
+     } catch (err) {
+      console.error("Error creating post:", err);
+    }
   }
-}
 
   function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -46,6 +48,7 @@ export default function Compose() {
   return (
     <div>
       <Navbar />
+      <Toaster />
       <div className="divcomp">
         <h1 className="text-white">Compose</h1>
         <div className="flex-center">
@@ -71,8 +74,11 @@ export default function Compose() {
               rows={7}
             />
 
-            <button type="submit" className="pubtn">
-              publish
+            <button
+              type="submit"
+              className="pubtn"
+            >
+              Publish
             </button>
           </form>
         </div>

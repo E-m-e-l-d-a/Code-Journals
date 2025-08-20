@@ -46,7 +46,7 @@ export default function Navbar() {
                 <li>
                   <NavLink 
                     to="/" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
                     onClick={handleLinkClick}
                   >
                     Home
@@ -55,7 +55,7 @@ export default function Navbar() {
                 <li>
                   <NavLink 
                     to="/compose" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
                     onClick={handleLinkClick}
                   >
                     Compose
@@ -64,7 +64,7 @@ export default function Navbar() {
                 <li>
                   <NavLink 
                     to="/blogs" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
                     onClick={handleLinkClick}
                   >
                     Blogs
@@ -73,7 +73,7 @@ export default function Navbar() {
                 <li>
                   <NavLink 
                     to="/about" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
                     onClick={handleLinkClick}
                   >
                     About
@@ -82,14 +82,14 @@ export default function Navbar() {
                 <li>
                   <NavLink 
                     to="/contact" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-100"
                     onClick={handleLinkClick}
                   >
                     Contact
                   </NavLink>
                 </li>
                 <li>
-                  <button onClick={click} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <button onClick={click} className="block w-full text-left px-4 py-2 text-sm text-gray-500 hover:bg-gray-100">
                     Log Out
                   </button>
                 </li>

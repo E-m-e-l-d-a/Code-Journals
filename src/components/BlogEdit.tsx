@@ -4,7 +4,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Navbar from "./Navbar";
 import axios from "axios";
-
+import {Toaster, toast} from "react-hot-toast";
 interface Post {
   _id: string;
   title: string;
@@ -58,8 +58,8 @@ const handleSave = async () => {
     await axios.put(`${API_BASE_URL}/api/update/blog/${id}`, editForm, {
       headers: { "Content-Type": "application/json" },
     });
-
     navigate("/blogs");
+    toast("Blog successfully Updated!");
   } catch (err) {
     console.error("Error updating post:", err);
   }
@@ -74,6 +74,7 @@ const handleSave = async () => {
     return (
       <div>
         <Navbar />
+        <Toaster />
         <div className="divblog flex-center flex-col">
           <h1 className="text-white">Loading post...</h1>
         </div>
@@ -107,6 +108,7 @@ const handleSave = async () => {
 
   return (
     <div>
+      <Toaster />
       <div className="divblog flex-center flex-col">
         <h1 className="text-white">Edit Blog Post</h1>
         <input
